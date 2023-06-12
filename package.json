@@ -4,13 +4,21 @@
 	"description": "Jodit is awesome and usefully wysiwyg editor with filebrowser",
 	"main": "build/jodit.min.js",
 	"types": "./types/index.d.ts",
+	"config": {
+		"excludePlugins": "",
+		"includePlugins": "source,copy-format,select,paste,format-block,link,bold,image,resizer,color,clean-html,focus,iframe,enter,backspace,redo-undo,size,hr,indent,table,select-cells,table-keyboard-navigation,ordered-list,justify,styles",
+		"excludeLanguages": "",
+		"includeLanguages": "en",
+		"esVersion": "es2018"
+	},
 	"scripts": {
 		"start": "make start",
 		"clean": "make clean",
 		"lint": "make lint",
 		"coverage": "make coverage",
 		"newversion": "make newversion",
-		"build": "make build-all",
+		"build": "make build es=$npm_package_config_esVersion uglify=true excludePlugins=\"$npm_package_config_excludePlugins\" includePlugins=\"$npm_package_config_includePlugins\" excludeLanguages=\"$npm_package_config_excludeLanguages\" includeLanguages=\"$npm_package_config_includeLanguages\"",
+		"build-all": "make build-all",
 		"test": "make test",
 		"test:screenshots": "make screenshots-test",
 		"test:debug": "make test-only-run browsers=Chrome singleRun=false",
