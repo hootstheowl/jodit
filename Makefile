@@ -115,6 +115,19 @@ esm:
 	@echo "ESM build not yet available"
 endif
 
+.PHONY: build-single
+build-single:
+	make clean
+	@mkdir -p $(pwd)/build/
+	@$(TS_NODE_BASE) $(cwd)tools/utils/prepare-publish.ts $(pwd)
+	@$(NODE_MODULES_BIN)/replace "4\.0\.0-beta\.\d+" "$(version)" $(pwd)/build/README.md --silent
+	@cd $(pwd)/build/ && npm i
+	make esm
+
+	make build es=$(es) uglify=false generateTypes=$(BUILD_DTS) includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make dts
+	make build es=$(es) includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=$(es) uglify=true fat=true includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
 
 .PHONY: build-all
 build-all:
@@ -125,26 +138,26 @@ build-all:
 	@cd $(pwd)/build/ && npm i
 	make esm
 
-	make build es=es2018 uglify=false generateTypes=$(BUILD_DTS)
+	make build es=es2018 uglify=false generateTypes=$(BUILD_DTS) includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
 	make dts
-	make build es=es2018
-	make build es=es2018 uglify=true fat=true
+	make build es=es2018 includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=es2018 uglify=true fat=true includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
 
-	make build es=es2015
-	make build es=es2015 uglify=false
-	make build es=es2015 uglify=true fat=true
+	make build es=es2015 includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=es2015 uglify=false includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=es2015 uglify=true fat=true includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
 
-	make build es=es2021
-	make build es=es2021 uglify=false
-	make build es=es2021 uglify=true fat=true
+	make build es=es2021 includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=es2021 uglify=false includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=es2021 uglify=true fat=true includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
 
-	make build es=es5
-	make build es=es5 uglify=false
-	make build es=es5 uglify=true fat=true
+	make build es=es5 includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=es5 uglify=false includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=es5 uglify=true fat=true includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
 
-	make build es=es2021 includeLanguages=en
-	make build es=es2021 includeLanguages=en uglify=false
-	make build es=es2021 includeLanguages=en uglify=true fat=true
+	make build es=es2021 includeLanguages=en includePlugins=$(includePlugins) excludePlugins=$(excludePlugins)
+	make build es=es2021 includeLanguages=en uglify=false includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
+	make build es=es2021 includeLanguages=en uglify=true fat=true includePlugins=$(includePlugins) excludePlugins=$(excludePlugins) includeLanguages=$(includeLanguages) excludeLanguages=$(excludeLanguages)
 
 .PHONY: test-all
 test-all:

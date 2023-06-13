@@ -6,19 +6,19 @@
 	"types": "./types/index.d.ts",
 	"config": {
 		"excludePlugins": "",
-		"includePlugins": "source,copy-format,select,paste,format-block,link,bold,image,resizer,color,clean-html,focus,iframe,enter,backspace,redo-undo,size,hr,indent,table,select-cells,table-keyboard-navigation,ordered-list,justify,styles",
+		"includePlugins": "wrap-nodes,hotkeys,source,format-block,link,bold,image,resizer,color,clean-html,iframe,backspace,redo-undo,size,hr,indent,table,select-cells,table-keyboard-navigation,ordered-list,justify,",
 		"excludeLanguages": "",
-		"includeLanguages": "en",
-		"esVersion": "es2018"
+		"includeLanguages": "en,",
+		"ecma": "es2018"
 	},
 	"scripts": {
-		"start": "make start",
+		"start": "make start es=$npm_package_config_ecma uglify=true includePlugins=\"$npm_package_config_includePlugins\" excludeLanguages=\"$npm_package_config_excludeLanguages\" includeLanguages=\"$npm_package_config_includeLanguages\"",
 		"clean": "make clean",
 		"lint": "make lint",
 		"coverage": "make coverage",
 		"newversion": "make newversion",
-		"build": "make build es=$npm_package_config_esVersion uglify=true excludePlugins=\"$npm_package_config_excludePlugins\" includePlugins=\"$npm_package_config_includePlugins\" excludeLanguages=\"$npm_package_config_excludeLanguages\" includeLanguages=\"$npm_package_config_includeLanguages\"",
-		"build-all": "make build-all",
+		"build-single": "make build-single es=$npm_package_config_ecma excludePlugins=\"$npm_package_config_excludePlugins\" includePlugins=\"$npm_package_config_includePlugins\" excludeLanguages=\"$npm_package_config_excludeLanguages\" includeLanguages=\"$npm_package_config_includeLanguages\"",
+		"build": "make build-all excludePlugins=\"$npm_package_config_excludePlugins\" includePlugins=\"$npm_package_config_includePlugins\" excludeLanguages=\"$npm_package_config_excludeLanguages\" includeLanguages=\"$npm_package_config_includeLanguages\"",
 		"test": "make test",
 		"test:screenshots": "make screenshots-test",
 		"test:debug": "make test-only-run browsers=Chrome singleRun=false",
